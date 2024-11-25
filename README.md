@@ -99,4 +99,17 @@ git clone https://github.com/ariskost/todo-app-nuxt.git
 cd project directory
 
 # Install dependencies
+```bash
 npm install
+```
+# Development Server
+
+Start the development server on `http://localhost:3000`:
+
+# Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
