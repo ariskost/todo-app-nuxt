@@ -20,7 +20,7 @@ import { eventBus } from './eventBus'
 import { useRuntimeConfig } from '#app'
 
 const config = useRuntimeConfig()
-const appBaseUrl = config.public.appBaseUrl // Get the base URL
+const appBaseUrl = config.public.appBaseUrl // Get the base URL from .env
 
 const title = ref('')
 const category = ref('')
@@ -28,7 +28,6 @@ const category = ref('')
 const addNewTask = async () => {
     if (title.value.trim() && category.value.trim()) {
         try {
-
             const response = await fetch(`${appBaseUrl}/todos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -38,11 +37,11 @@ const addNewTask = async () => {
             if (!response.ok) throw new Error('Failed to create task');
 
             const newTask = await response.json();
-
             title.value = '';
             category.value = '';
 
-            eventBus.emit('task-added'); // Emit the event
+            // Emit the new task directly
+            eventBus.emit('task-added', newTask);
 
         } catch (error) {
             console.error('Error adding task:', error);
@@ -50,6 +49,7 @@ const addNewTask = async () => {
     }
 };
 </script>
+
 
 
 <style scoped>

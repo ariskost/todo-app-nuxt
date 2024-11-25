@@ -6,10 +6,12 @@
 </template>
   
 <script setup>
-import TodoForm from '~/components/TodoForm.vue'
-import TodoList from '~/components/TodoList.vue'
+import TodoForm from '~/components/ToDoForm.vue'
+import TodoList from '~/components/ToDoList.vue'
 </script>
-<style scoped>
+<style>
+@import '~/assets/css/animations.css';
+
 .container{
     max-width: 800px !important;
 }

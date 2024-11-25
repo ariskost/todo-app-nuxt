@@ -3,7 +3,7 @@ import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 
 export default defineNuxtConfig({
-  css: ['~/assets/css/tailwind.css'],
+  css: ['~/assets/css/animations.css','~/assets/css/tailwind.css'],
   modules: ['@pinia/nuxt'],
   vite: {
     css: {
@@ -26,4 +26,5 @@ export default defineNuxtConfig({
       title: process.env.APP_TITLE || 'To Do List Application Kostidis',
     },
   },
+  devtools: { enabled: true },
 })
