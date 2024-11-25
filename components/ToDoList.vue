@@ -1,7 +1,9 @@
 <template>
     <div class="max-w-lg mx-auto mt-5">
         <!-- Loading States, Error States & No Values Message -->
-        <div v-if="pending || isRefreshing" class="text-gray-500"> Loading tasks... </div>
+        <div v-if="pending || isRefreshing" class="flex justify-center items-center h-16">
+            <div class="loader"></div>
+        </div>
         <div v-else-if="error" class="text-red-500">An error occurred: {{ error.message }}</div>
         <div v-else-if="!safeTasks.length" class="text-gray-500"> No Tasks </div>
         <!-- Tasks List -->
@@ -76,5 +78,18 @@ const removeTask = async (id) => {
     background: #FFED00;
     border-radius: 5px;
     font-weight: 600;
+}
+
+.loader {
+    width: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
+    33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #0002}
+    66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
+    100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
 }
 </style>
