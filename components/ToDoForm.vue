@@ -17,6 +17,10 @@
 <script setup>
 import { ref } from 'vue'
 import { eventBus } from './eventBus'
+import { useRuntimeConfig } from '#app'
+
+const config = useRuntimeConfig()
+const appBaseUrl = config.public.appBaseUrl // Get the base URL
 
 const title = ref('')
 const category = ref('')
@@ -25,7 +29,7 @@ const addNewTask = async () => {
     if (title.value.trim() && category.value.trim()) {
         try {
 
-            const response = await fetch('https://to-do-kostidis.titlos.com/todos', {
+            const response = await fetch(`${appBaseUrl}/todos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title: title.value, category: category.value })

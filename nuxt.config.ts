@@ -9,10 +9,21 @@ export default defineNuxtConfig({
     css: {
       postcss: {
         plugins: [
-          tailwindcss, // Ensure these are not called as functions here
+          tailwindcss,
           autoprefixer
         ],
       },
+    },
+  },
+  runtimeConfig: {
+    public: {
+      appTitle: process.env.APP_TITLE || 'To Do List Application Kostidis',
+      appBaseUrl: process.env.APP_API_BASE_URL || 'http://localhost:3000',
+    },
+  },
+  app: {
+    head: {
+      title: process.env.APP_TITLE || 'To Do List Application Kostidis',
     },
   },
 })

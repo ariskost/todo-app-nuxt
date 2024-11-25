@@ -19,8 +19,12 @@
     import { ref, onMounted } from 'vue'
     import { useFetch } from 'nuxt/app'
     import { eventBus } from './eventBus'
+    import { useRuntimeConfig } from '#app'
 
-    const { data: tasks, error, pending, refresh } = useFetch('https://to-do-kostidis.titlos.com/todos', {
+    const config = useRuntimeConfig()
+    const appBaseUrl = config.public.appBaseUrl // Get the base URL from .env
+
+    const { data: tasks, error, pending, refresh } = useFetch(`${appBaseUrl}/todos`, {
         autoFetch: false
     })
 
@@ -39,7 +43,7 @@
 
     const removeTask = async (id) => {
         try {
-            await fetch(`https://to-do-kostidis.titlos.com/todos/${id}`, {
+            await fetch(`${appBaseUrl}/todos/${id}`, {
                 method: 'DELETE'
             });
             await refresh();
