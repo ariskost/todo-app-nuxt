@@ -5,6 +5,7 @@ import autoprefixer from 'autoprefixer';
 export default defineNuxtConfig({
   css: ['~/assets/css/animations.css','~/assets/css/tailwind.css'],
   modules: ['@pinia/nuxt'],
+  plugins: ['~/plugins/fontawesome.ts'],
   vite: {
     css: {
       postcss: {
