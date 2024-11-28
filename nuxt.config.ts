@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 
@@ -6,6 +5,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/animations.css','~/assets/css/tailwind.css'],
   modules: ['@pinia/nuxt'],
   plugins: ['~/plugins/fontawesome.ts'],
+  pages: true,
   vite: {
     css: {
       postcss: {

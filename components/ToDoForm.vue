@@ -30,6 +30,13 @@
                     </button>
                 </div>
             </transition>
+
+            <!-- Task Created Modal -->
+            <transition name="fade">
+                <div v-if="taskCreated" class="modal bg-green-100 text-green-900 p-4 rounded shadow-md">
+                    Task "{{ createdTaskTitle }}" was successfully created!
+                </div>
+            </transition>
         </form>
     </div>
 </template>
@@ -46,6 +53,8 @@ const title = ref('')
 const category = ref('')
 const errorMessage = ref('')
 const categories = ref(['Personal', 'Work']) 
+const taskCreated = ref(false)
+const createdTaskTitle = ref('')
 
 // Clear error function and message
 const clearError = () => {
@@ -81,9 +90,15 @@ const addNewTask = async () => {
         if (!response.ok) throw new Error('Failed to create task')
 
         const newTask = await response.json()
+
+        createdTaskTitle.value = title.value
         title.value = ''
         category.value = ''
+        taskCreated.value = true
 
+        setTimeout(() => {
+            taskCreated.value = false
+        }, 3000)
         
         eventBus.emit('task-added', newTask) // Emit the new task directly
     } catch (error) {
@@ -141,5 +156,19 @@ const addNewTask = async () => {
     padding: 12px 10px;
     background: white;
     border-radius: 5px;
+}
+
+/* Fade Animation for Modal */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.modal {
+    margin-top: 10px;
 }
 </style>

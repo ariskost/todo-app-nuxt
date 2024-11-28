@@ -5,7 +5,7 @@
         <TodoList :search="search" :selectedCategories="selectedCategories" />
     </div>
 </template>
-  
+
 <script setup>
 import TodoForm from '~/components/ToDoForm.vue'
 import FilterRow from '~/components/FilterRow.vue'
@@ -16,17 +16,16 @@ const search = ref('')
 const selectedCategories = ref([])
 
 const updateSearch = (newSearch) => {
-  search.value = newSearch
+    search.value = newSearch
 }
 
 const updateCategories = (newCategories) => {
-  selectedCategories.value = newCategories
+    selectedCategories.value = newCategories
 }
 </script>
+
 <style>
 @import '~/assets/css/animations.css';
 
-.container{
-    max-width: 800px !important;
-}
+.container{ max-width: 800px !important; }
 </style>

@@ -2,13 +2,17 @@
     <div class="flex items-center justify-between max-w-lg mx-auto my-2">
         <!-- Search Input -->
         <span class="search__icon">
-            <font-awesome-icon class="text-gray-500 mr-2" :icon="['fas', 'search']" />
+            <client-only> 
+                <font-awesome-icon class="text-gray-500 mr-2" :icon="['fas', 'search']" />
+            </client-only>
         </span>
         <input type="text" v-model="search" placeholder="Search tasks..." class="flex-1 search__input" />
 
         <!-- Filter Button -->
         <button @click="togglePopover" class="filter__button p-2">
-            <font-awesome-icon :icon="['fas', 'filter']" />
+            <client-only>
+                <font-awesome-icon :icon="['fas', 'filter']" />
+            </client-only>    
         </button>
 
         <!-- Popover -->
@@ -19,8 +23,13 @@
             </label>
             <div v-for="(category, index) in categories" :key="index" class="flex items-center space-x-2">
                 <input type="checkbox" v-model="selectedCategories" :value="category" />
-                <span>{{ category }}</span>
+                <span>
+                    <nuxt-link :to="`/categories/${category.toLowerCase()}`" class="hover:underline">
+                        {{ category }}
+                    </nuxt-link>
+                </span>
             </div>
+
         </div>
     </div>
 </template>

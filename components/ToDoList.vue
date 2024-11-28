@@ -11,6 +11,16 @@
         <!-- No Tasks Message -->
         <div v-else-if="!filteredTasks.length" class="text-gray-500">No Tasks</div>
 
+        <transition name="fade">
+            <div v-if="showDeleteModal" class="modal bg-white text-black p-4 rounded shadow-md flex flex-col items-center">
+                <p>Are you sure you want to delete "{{ taskToDelete.title }}"?</p>
+                <div class="flex mt-4">
+                    <button @click="confirmDelete" class="bg-red-500 text-white py-2 px-4 rounded mr-2">Yes</button>
+                    <button @click="cancelDelete" class="bg-gray-300 py-2 px-4 rounded">No</button>
+                </div>
+            </div>
+        </transition>
+
         <!-- Task List -->
         <transition-group name="fade-down" tag="ul">
             <li
@@ -26,7 +36,7 @@
                     {{ task.category }}
                 </span>
                 <button
-                    @click="removeTask(task.id)"
+                    @click="openDeleteModal(task)"
                     class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
                 >
                     x
@@ -56,6 +66,9 @@ const { data: tasks, error, pending, refresh } = useFetch(`${appBaseUrl}/todos`,
 
 const safeTasks = ref([])
 const isRefreshing = ref(false)
+
+const showDeleteModal = ref(false)
+const taskToDelete = ref(null)
 
 const syncTasks = () => {
     safeTasks.value = tasks.value || []
@@ -92,17 +105,26 @@ onMounted(async () => {
     })
 })
 
-const removeTask = async id => {
+const openDeleteModal = (task) => {
+    taskToDelete.value = task
+    showDeleteModal.value = true
+}
+
+const confirmDelete = async () => {
     try {
-        isRefreshing.value = true
-        await fetch(`${appBaseUrl}/todos/${id}`, { method: 'DELETE' })
+        await fetch(`${appBaseUrl}/todos/${taskToDelete.value.id}`, { method: 'DELETE' })
         await refresh()
         syncTasks()
-        isRefreshing.value = false
+        showDeleteModal.value = false
+        taskToDelete.value = null
     } catch (err) {
         console.error('Failed to delete task:', err)
-        isRefreshing.value = false
     }
+}
+
+const cancelDelete = () => {
+    showDeleteModal.value = false
+    taskToDelete.value = null
 }
 
 watch(() => props.selectedCategories, (newVal) => {
@@ -132,5 +154,27 @@ watch(() => props.selectedCategories, (newVal) => {
     33% { box-shadow: 20px 0 #000, -20px 0 #0002; background: #0002; }
     66% { box-shadow: 20px 0 #0002, -20px 0 #000; background: #0002; }
     100% { box-shadow: 20px 0 #0002, -20px 0 #000; background: #000; }
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Fade Animation for Modal */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>
