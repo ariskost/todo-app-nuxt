@@ -7,25 +7,30 @@
 </template>
 
 <script setup>
-import TodoForm from '~/components/ToDoForm.vue'
-import FilterRow from '~/components/FilterRow.vue'
-import TodoList from '~/components/ToDoList.vue'
-import { ref } from 'vue'
+    
+    definePageMeta({
+        middleware: 'auth',
+    })
 
-const search = ref('')
-const selectedCategories = ref([])
+    import TodoForm from '~/components/ToDoForm.vue'
+    import FilterRow from '~/components/FilterRow.vue'
+    import TodoList from '~/components/ToDoList.vue'
+    import { ref } from 'vue'
 
-const updateSearch = (newSearch) => {
-    search.value = newSearch
-}
+    const search = ref('')
+    const selectedCategories = ref([])
 
-const updateCategories = (newCategories) => {
-    selectedCategories.value = newCategories
-}
+    const updateSearch = (newSearch) => {
+        search.value = newSearch
+    }
+
+    const updateCategories = (newCategories) => {
+        selectedCategories.value = newCategories
+    }
 </script>
 
 <style>
-@import '~/assets/css/animations.css';
+    @import '~/assets/css/animations.css';
 
-.container{ max-width: 800px !important; }
+    .container{ max-width: 800px !important; }
 </style>
