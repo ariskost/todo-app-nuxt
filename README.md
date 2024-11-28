@@ -113,3 +113,52 @@ Build the application for production:
 ```bash
 npm run build
 ```
+
+Start the production server:
+
+```bash
+npm run start
+```
+## User Credentials
+-Username: user@titlos.com
+-Password: password
+
+# Setting Up the .env File
+
+1. **Locate the `.env.example` file**:
+   - The project contains a `.env.example` file in the root directory. This file provides a template for the environment variables required by the application.
+
+2. **Create a new `.env` file**:
+   - Make a copy of `.env.example` and rename it to `.env` in the same directory:
+     ```bash
+     cp .env.example .env
+     ```
+
+3. **Configure the environment variables**:
+   - Open the `.env` file in your preferred text editor.
+   - Replace the placeholder values with the actual credentials and settings for your environment. For example:
+     ```env
+     APP_TITLE=To Do List Application Kostidis
+     APP_API_BASE_URL=https://to-do-kostidis.titlos.com
+
+     AUTH_EMAIL=user@titlos.com
+     AUTH_PASSWORD=password
+     ```
+
+4. **Save the `.env` file**:
+   - Ensure the file is saved with the updated values.
+
+5. **Restart the application**:
+   - After setting up the `.env` file, restart the application for the changes to take effect:
+     ```bash
+     npm run dev
+     ```
+     or for production:
+     ```bash
+     npm run build
+     npm run start
+     ```
+
+---
+
+**Note**: The `.env` file is ignored by version control (Git) to keep sensitive information secure. Never share this file publicly.
